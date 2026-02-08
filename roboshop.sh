@@ -1,7 +1,7 @@
 #!/bin/bash
 
-AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-07c8acf3fa6b923fa" # replace with your SG ID
+AMI_ID="ami-0220d79f3f480ecf5"
+SG_ID="sg-08ae1eafe91ce777b" # replace with your SG ID
 #ZONE_ID="Z0948150OFPSYTNVYZOY" # replace with your ID
 #DOMAIN_NAME="daws86s.fun"
 
@@ -12,10 +12,10 @@ do
     # Get Private IP
     if [ $instance != "frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
-        RECORD_NAME="$instance.$DOMAIN_NAME" # mongodb.daws86s.fun
+        
     else
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
-        RECORD_NAME="$DOMAIN_NAME" # daws86s.fun
+        
     fi
 
     echo "$instance: $IP"
