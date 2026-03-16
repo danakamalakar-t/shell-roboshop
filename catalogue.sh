@@ -58,6 +58,9 @@ VALIDATE $? "Downloading catalogue service code"
 cd /app
 VALIDATE $? "Changing directory to /app"
 
+dnf install unzip -y &>>$LOG_FILE
+VALIDATE $? "Installing unzip"
+
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Extracting catalogue service code"
 
