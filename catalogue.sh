@@ -30,7 +30,7 @@ VALIDATE(){ # functions receive inputs through args just like shell script args
 
 ### NodeJS is a prerequisite for catalogue service. So, we will install NodeJS first and then we will install catalogue service.###
 dnf module disable nodejs -y &>>$LOG_FILE
-validate $? "Disabling NodeJS module"
+VALIDATE $? "Disabling NodeJS module"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "Enabling NodeJS 20 module"
@@ -45,7 +45,7 @@ mkdir /app
 VALIDATE $? "Creating /app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
-validate $? "Downloading catalogue service code"
+VALIDATE $? "Downloading catalogue service code"
 
 cd /app
 VALIDATE $? "Changing directory to /app"
