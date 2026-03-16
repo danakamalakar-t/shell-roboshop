@@ -39,3 +39,8 @@ VALIDATE $? "Enable MongoDB"
 systemctl start mongod 
 VALIDATE $? "Start MongoDB"
 
+sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Allowing MongoDB to listen on all interfaces"
+
+systemctl restart mongod 
+VALIDATE $? "Restarting MongoDB"
