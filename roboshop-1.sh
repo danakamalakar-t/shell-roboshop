@@ -1,7 +1,7 @@
 #!/bin/bash
 
 AMI_ID="ami-0220d79f3f480ecf5"
-SG_ID="sg-08ae1eafe91ce777b" # replace with your
+SG_ID="sg-03bb860752efe974e" # replace with your
 ZONE_ID="Z0417044F9DPXHHFJ4E9" # replace with your ID
 DOMAIN_NAME="danakamalakar.store"
 
