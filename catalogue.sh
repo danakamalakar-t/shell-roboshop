@@ -61,6 +61,9 @@ VALIDATE $? "Changing directory to /app"
 dnf install unzip -y &>>$LOG_FILE
 VALIDATE $? "Installing unzip"
 
+rm -rf /app/* &>>$LOG_FILE
+VALIDATE $? "Cleaning up old catalogue service code"
+
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Extracting catalogue service code"
 
@@ -80,8 +83,18 @@ VALIDATE $? "Adding Mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing MongoDB Shell"
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
-VALIDATE $? "Loading master data to MongoDB"
+COUNT=$(mongosh mongodb.danakamalakar.store --quiet --eval "
+db.getMongo().getDBNames().indexOf('catalogue')
+")
+
+if [ "$COUNT" -le 0 ]; 
+        then
+        mongosh --host "$MONGODB_HOST" </app/db/master-data.js &>>"$LOG_FILE"
+        VALIDATE $? "Loading master data to MongoDB"
+else
+    echo "Service already exists... SKIPPING"
+fi
+
 
 systemctl restart catalogue
 VALIDATE $? "Restarting catalogue service"
