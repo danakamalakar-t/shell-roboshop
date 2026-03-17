@@ -84,7 +84,7 @@ VALIDATE $? "Adding Mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing MongoDB Shell"
 
-COUNT=$(mongosh mongodb.danakamalakar.store --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+COUNT=$(mongosh mongodb.sh.danakamalakar.store --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 
 if [ $COUNT -le 0 ]; then
         mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
