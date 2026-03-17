@@ -10,6 +10,7 @@ LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 MONGODB_HOST="mongodb.danakamalakar.store"
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/16-logs.log
+SCRIPT_DIR=$PWD
 
 mkdir -p $LOGS_FOLDER
 echo "Script started executed at: $(date)" | tee -a $LOG_FILE
@@ -70,14 +71,14 @@ VALIDATE $? "Extracting catalogue service code"
 npm install &>>$LOG_FILE
 VALIDATE $? "Installing catalogue service dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copying catalogue service file"
 
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "Enabling catalogue service"
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding Mongo repo"
 
 dnf install mongodb-mongosh -y &>>$LOG_FILE
