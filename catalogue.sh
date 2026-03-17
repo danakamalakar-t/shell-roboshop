@@ -90,8 +90,8 @@ if [ $COUNT -le 0 ]; then
         mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
         VALIDATE $? "Loading master data to MongoDB"
 else
-    echo -e "Catalogue products already loaded  ... $Y SKIPPING $N" | tee -a $LOG_FILE
-fi
+    echo -e "Catalogue products already loaded  ... $Y SKIPPING $N"
+fi 
 
 
 systemctl restart catalogue
