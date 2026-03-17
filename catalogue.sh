@@ -84,16 +84,14 @@ VALIDATE $? "Adding Mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing MongoDB Shell"
 
-COUNT=$(mongosh mongodb.danakamalakar.store --quiet --eval "
-db.getMongo().getDBNames().indexOf('catalogue')
-")
+COUNT=$(mongosh mongodb.danakamalakar.store --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 
-if [ "$COUNT" -le 0 ]; 
+if [ $COUNT -le 0 ]; 
         then
-        mongosh --host "$MONGODB_HOST" </app/db/master-data.js &>>"$LOG_FILE"
+        mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
         VALIDATE $? "Loading master data to MongoDB"
 else
-    echo "Service already exists... SKIPPING"
+    echo -e "Catalogue products already loaded  ... $Y SKIPPING $N" | tee -a $LOG_FILE
 fi
 
 
