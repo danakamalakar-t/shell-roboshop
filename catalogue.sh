@@ -86,8 +86,7 @@ VALIDATE $? "Installing MongoDB Shell"
 
 COUNT=$(mongosh mongodb.danakamalakar.store --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 
-if [ $COUNT -le 0 ]; 
-        then
+if [ $COUNT -le 0 ]; then
         mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
         VALIDATE $? "Loading master data to MongoDB"
 else
